@@ -9,13 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class DefaultItemService implements ItemService {
 
     public static final String EMPTY_TAG_ERROR = "Cannot apply empty tag value";
+    public static final String ITEM_NOT_FOUND_ERROR = "Item not found";
+
     @Autowired
     private ItemRepository itemRepository;
 
@@ -31,7 +32,9 @@ public class DefaultItemService implements ItemService {
     @Override
     public void updateItem(long itemId, String cmd, Optional<String> data) {
 
-        Item item = itemRepository.findById(itemId).orElseThrow(() -> new IllegalArgumentException("Item not found"));
+        Item item = itemRepository.findById(itemId).orElseThrow(
+            () -> new IllegalArgumentException(ITEM_NOT_FOUND_ERROR));
+
         updateItem(cmd, data, item);
     }
 

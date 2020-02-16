@@ -11,7 +11,7 @@ public interface ItemsListService {
 
      Optional<ItemsList> findById(long itemListsId);
 
-     void save(@Valid ItemsList itemsList);
+     ItemsList save(@Valid ItemsList itemsList);
 
      void addItems(long itemsListId, List<Item> items);
 

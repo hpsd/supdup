@@ -5,7 +5,9 @@ import com.deltaa.superduper.domain.entities.ItemsList;
 import com.deltaa.superduper.service.ItemsListService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,16 +22,18 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 @RestController
-@RequestMapping("/lists")
-public class ItemListsController {
+@RequestMapping("/itemsList")
+public class ItemsListController {
 
     @Autowired
     private ItemsListService itemsListService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createList(@RequestBody @Valid final ItemsList itemsList) {
+    public ResponseEntity<ItemsList> createList(@RequestBody @Valid final ItemsList itemsList) {
 
-        itemsListService.save(itemsList);
+        ItemsList savedItemsList = itemsListService.save(itemsList);
+
+        return new ResponseEntity<>(savedItemsList, HttpStatus.CREATED);
     }
 
     @Transactional

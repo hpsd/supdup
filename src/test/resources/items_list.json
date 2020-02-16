@@ -1,0 +1,22 @@
+{
+  "name": "shopping",
+  "items": [
+    {
+      "name": "apples",
+      "tag": "snack",
+      "reminders" : [
+        {
+          "description" : "have an apple at 10 am"
+        },
+        {
+          "description" : "have an apple at 11 am"
+        }
+
+      ]
+    },
+    {
+      "name": "panadol",
+      "tag": "health"
+    }
+  ]
+}

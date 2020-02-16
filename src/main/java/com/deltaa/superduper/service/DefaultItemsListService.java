@@ -25,9 +25,9 @@ public class DefaultItemsListService implements ItemsListService {
     }
 
     @Override
-    public void save(ItemsList itemsList) {
+    public ItemsList save(ItemsList itemsList) {
 
-        itemsListRepository.save(itemsList);
+        return itemsListRepository.save(itemsList);
     }
 
     @Transactional
