@@ -9,5 +9,6 @@ Run postman scripts in the following order:
 * addreminders - add more reminders to the items added earlier
 * updateitem tag, completeitem, deleteitem, restoreitem - run these in any order
 * getlist - view the list added earlier
+
 Tested on JDK 1.8 in IntelliJ IDE
 
