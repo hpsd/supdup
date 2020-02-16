@@ -32,7 +32,6 @@ import java.util.Optional;
 public class DefaultItemsListServiceTest {
 
     public static final String TAG = "aaaa";
-    public static final String EMPTY_TAG_ERROR = "Cannot apply empty tag value";
 
     @Autowired
     private DefaultItemsListService underTest;
@@ -57,13 +56,14 @@ public class DefaultItemsListServiceTest {
     @Test
     public void shouldFindById() throws IOException {
 
-        Optional<ItemsList> optionalItemsList = Optional.empty();
+        ItemsList itemsList = TestUtils.getItemsListModel();
+        Optional<ItemsList> optionalItemsList = Optional.of(itemsList);
 
         when(itemListRepositoryMock.findById(1L)).thenReturn(optionalItemsList);
 
-        Optional<ItemsList> returnValue = underTest.findById(1);
+        ItemsList returnValue = underTest.findById(1);
 
-        assertSame(optionalItemsList, returnValue);
+        assertSame(optionalItemsList.get(), returnValue);
     }
 
     @Test
@@ -74,7 +74,6 @@ public class DefaultItemsListServiceTest {
         underTest.save(itemsList);
 
         verify(itemListRepositoryMock, times(1)).save(itemsList);
-
     }
 
     @Test
@@ -91,13 +90,24 @@ public class DefaultItemsListServiceTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenItemsListNotFound() {
+    public void shouldThrowExceptionWhenItemsListNotFoundForAddItems() {
 
         List<Item> items = new ArrayList<Item>();
 
         try {
 
             underTest.addItems(1, items);
+        } catch (IllegalArgumentException ex) {
+            assertEquals(DefaultItemsListService.ITEMS_LIST_NOT_FOUND, ex.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenItemsListNotFoundForFindById() {
+
+        try {
+
+            underTest.findById(1);
         } catch (IllegalArgumentException ex) {
             assertEquals(DefaultItemsListService.ITEMS_LIST_NOT_FOUND, ex.getMessage());
         }

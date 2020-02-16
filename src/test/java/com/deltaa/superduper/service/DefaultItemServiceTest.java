@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.deltaa.superduper.TestUtils;
 import com.deltaa.superduper.domain.dao.ItemRepository;
 import com.deltaa.superduper.domain.entities.Item;
 import com.deltaa.superduper.domain.entities.Reminder;
@@ -21,6 +22,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,9 +54,9 @@ public class DefaultItemServiceTest {
     }
 
     @Test
-    public void shouldAddRemindersToItem() {
+    public void shouldAddRemindersToItem() throws IOException {
 
-        List<Reminder> reminders = new ArrayList<Reminder>();
+        List<Reminder> reminders = TestUtils.getRemindersListObject();
 
         when(itemRepositoryMock.findById(1L)).thenReturn(Optional.of(itemMock));
 
@@ -106,7 +108,32 @@ public class DefaultItemServiceTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenItemNotFound() {
+    public void shouldThrowExceptionWhenRemindersListIsEmpty() {
+
+        List<Reminder> reminders = new ArrayList<>();
+
+        try {
+
+            underTest.addReminders(1, reminders);
+        } catch (IllegalArgumentException ex) {
+            assertEquals(DefaultItemService.REMINDERS_ERROR, ex.getMessage());
+        }
+    }
+    @Test
+    public void shouldThrowExceptionWhenItemNotFoundForAddReminders() throws IOException {
+
+        List<Reminder> reminders = TestUtils.getRemindersListObject();
+
+        try {
+
+            underTest.addReminders(1, reminders);
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Item not found", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenItemNotFoundForUpdateItem() {
 
         try {
 

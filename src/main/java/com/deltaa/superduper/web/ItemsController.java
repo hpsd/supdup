@@ -26,8 +26,7 @@ public class ItemsController {
     private ItemService itemService;
 
     @PostMapping(value = "/{itemId}/reminders", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addRemindersToItem(@PathVariable long itemId,
-                                   @RequestBody @Size(min = 1) final List<Reminder> reminders) {
+    public void addRemindersToItem(@PathVariable long itemId, @RequestBody final List<Reminder> reminders) {
 
         itemService.addReminders(itemId, reminders);
     }

@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "4d592a2e-9147-40e5-835c-9728d417b4c5",
+		"name": "supdup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "savelist",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"shopping\",\n  \"items\": [\n    {\n      \"name\": \"apples\",\n      \"tag\": \"snack\",\n      \"reminders\" : [\n        {\n          \"description\" : \"have an apple at 10 am\"\n        },\n        {\n          \"description\" : \"have an apple at 11 am\"\n        }\n\n      ]\n    },\n    {\n      \"name\": \"panadol\",\n      \"tag\": \"health\"\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/supdup/itemsList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"supdup",
+						"itemsList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addreminders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n \n    [\n  \n      \t{\n      \t\t\"description\" : \"have panadol morning\"\n      \t},\n      \t{\n      \t\t\"description\" : \"have panadol evening\"\n      \t}\n  ]\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/supdup/items/2/reminders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"supdup",
+						"items",
+						"2",
+						"reminders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addItems",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n \n    [\n    {\n      \"name\": \"cheese\",\n      \"tag\": \"lunch\",\n      \"reminders\" : [\n      \t{\n      \t\t\"description\" : \"cheddar only\"\n      \t}\n      \t\n      \t]\n    },\n    {\n      \"name\": \"cards \",\n      \"tag\": \"office\"\n    }\n  ]\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/supdup/itemsList/1/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"supdup",
+						"itemsList",
+						"1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateItem tag",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/supdup/items/1/tag?data=snack two",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"supdup",
+						"items",
+						"1",
+						"tag"
+					],
+					"query": [
+						{
+							"key": "data",
+							"value": "snack two"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "completeitem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/supdup/items/2/complete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"supdup",
+						"items",
+						"2",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getlist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/supdup/itemsList/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"supdup",
+						"itemsList",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteitem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/supdup/items/3/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"supdup",
+						"items",
+						"3",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restoreitem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/supdup/items/3/restore",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"supdup",
+						"items",
+						"3",
+						"restore"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

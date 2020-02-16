@@ -1,6 +1,7 @@
 package com.deltaa.superduper.web;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -65,6 +67,19 @@ public class ItemsListControllerIntegrationTest {
             .andExpect(jsonPath("$.items[1].tag", is("health")))
             .andExpect(jsonPath("$.items[1].completed", is(false)))
             .andExpect(jsonPath("$.items[1].deleted", is(false)));
+    }
+
+    @Test
+    public void shouldGetBadRequestResponseWhenItemsListDoesNotExist() throws Exception {
+
+        MvcResult result =
+            mockMvc
+                .perform(get("/itemsList/666"))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertEquals("IllegalArgumentException: Items List not found", content);
     }
 
 }

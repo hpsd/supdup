@@ -16,6 +16,7 @@ public class DefaultItemService implements ItemService {
 
     public static final String EMPTY_TAG_ERROR = "Cannot apply empty tag value";
     public static final String ITEM_NOT_FOUND_ERROR = "Item not found";
+    public static final String REMINDERS_ERROR = "Reminders list is empty";
 
     @Autowired
     private ItemRepository itemRepository;
@@ -24,18 +25,23 @@ public class DefaultItemService implements ItemService {
     @Override
     public void addReminders(long itemId, List<Reminder> reminders) {
 
-        Optional<Item> optionalItem = itemRepository.findById(itemId);
-        optionalItem.get().addReminders(reminders);
+        if (reminders == null || reminders.size() == 0) {
+            throw new IllegalArgumentException(REMINDERS_ERROR);
+        }
+
+        findItemById(itemId).addReminders(reminders);
     }
 
     @Transactional
     @Override
     public void updateItem(long itemId, String cmd, Optional<String> data) {
 
-        Item item = itemRepository.findById(itemId).orElseThrow(
-            () -> new IllegalArgumentException(ITEM_NOT_FOUND_ERROR));
+        updateItem(cmd, data, findItemById(itemId));
+    }
 
-        updateItem(cmd, data, item);
+    private Item findItemById(long itemId) {
+        return itemRepository.findById(itemId).orElseThrow(
+                () -> new IllegalArgumentException(ITEM_NOT_FOUND_ERROR));
     }
 
     private void updateItem(String cmd, Optional<String> data, Item item) {

@@ -19,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -32,7 +31,6 @@ public class Item extends BaseEntity {
     private Long id;
 
     @NotNull
-    @Min(3)
     private String name;
     private String tag;
     private boolean completed;
