@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="Initiating tables" author="harinder">
+
+		<createTable tableName="items_list">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="name" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="version" type="smallint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="created_on" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+			<column name="updated_on" type="timestamp"></column>
+		</createTable>
+		<createSequence sequenceName="items_list_seq" startValue="1" />
+
+		<createTable tableName="items">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="name" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="items_list_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="tag" type="varchar(255)"/>
+			<column name="completed" type="boolean"/>
+			<column name="deleted" type="boolean"/>
+			<column name="version" type="smallint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="created_on" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+			<column name="updated_on" type="timestamp"></column>
+		</createTable>
+		<createSequence sequenceName="items_seq" startValue="1" />
+
+		<createTable tableName="item_reminders">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="description" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="item_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="smallint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="created_on" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+			<column name="updated_on" type="timestamp"></column>
+		</createTable>
+		<createSequence sequenceName="item_reminder_seq" startValue="1" />
+	</changeSet>
+</databaseChangeLog>
