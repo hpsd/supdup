@@ -12,7 +12,7 @@
 	<artifactId>superduper</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>superduper</name>
-	<description>SuperDuper Items Maintenance</description>
+	<description>SuperDuper Items List Maintenance</description>
 
 	<properties>
 		<java.version>1.8</java.version>
